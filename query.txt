@@ -1,0 +1,444 @@
+
+1.for create database:
+create database task;
+
+
+2.for create table:
+create table customer(cust_id int AUTOINCREMENT,
+                      cust_name varchar(200),
+                      cust_age int,
+                      cust_city varchar(200),
+                      cust_mobile int,
+                      primary key(cust_id));
+
+3. for create primarykey:
+create table customer(cust_id int AUTOINCREMENT,
+                      cust_name varchar(200),
+                      cust_age int,
+                      cust_city varchar(200),
+                      cust_mobile int,
+                      primary key(cust_id));
+
+4. for insert values in column:
+INSERT INTO customer(cust_id,cust_name,cust_age,cust_city,cust_mobile) VALUES
+                    (1,"Nihar",23,"Valsad",1234567);
+
+
+5.for making foreign key:
+create table ordr(order_id int AUTOINCREMENT,
+                  order_qty int,
+                  order_amt int,
+                  primary key(order_id),
+                  cust_id int;
+                  foreign key(cust_id) REFRENCES customer(cust_id)
+                  );
+
+
+6. for remove duplicate values:
+SELECT DISTINCT cust_age FROM customer;
+
+7.Current Date:
+SELECT sysdate();
+
+8. for display any column:
+SELECT cust_name,cust_age 
+FROM customer;
+
+9.retrieve customer age of all customer from customer table without any repeats:
+SELECT DISTINCT cust_age
+FROM customer;
+
+10.display name and city of customer,who belongs to city of valsad:
+SELECT cust_name,cust_city
+FROM customer 
+WHERE cust_city='Valsad';
+
+11.Display all the information for those customer with age of 22:
+SELECT*
+FROM customer
+WHERE cust_age=22;
+
+
+12. Display the customer name,customer id, customer city wich will be delivered by the customer id 1:
+SELECT cust_name,cust_id,cust_city
+FROM customer
+WHERE cust_id=1;
+
+
+13.show customer with age 23 and customer id with 1:
+SELECT cust_city
+FROM customer
+WHERE cust_age= 23
+AND cust_id = 1;
+
+
+14.Show the all details of customer with name:
+SELECT *
+FROM customer
+WHERE cust_name like 'Nihar%';
+
+
+15.Show customer details:
+SELECT *
+FROM customer
+WHERE(cust_age=23 AND cust_city='Valsad')
+UNION
+(SELECT*
+FROM customer
+WHERE(cust_age=21 AND cust_city='Surat'));
+
+
+16.Show customer details where customer city is not navsari:
+SELECT *
+FROM customer
+WHERE cust_id='1,2,3,4,5,6'
+AND cust_city NOT IN('Navsari');
+
+
+
+17.Show all customer details where city name no start from v and arrange the list of customer age in descending order:
+SELECT *
+FROM customer
+WHERE cust_city NOT LIKE'V%'
+ORDER BY cust_age DESC;
+
+
+18.Display all the customers, who are either belongs to the city valsad or not had a age above 23. 
+SELECT * 
+FROM customer
+WHERE cust_city='Valsad' OR NOT cust_age>22;
+
+
+19.Find those salesmen with all information who gets the commission within a range of 0.12 and 0.14
+SELECT cust_id,cust_name,cust_city,commision
+FROM customer
+WHERE commision BETWEEN 0.10 AND 0.12;
+
+
+20.Find all those customers with all information whose names are ending with the letter 'n'
+SELECT *
+FROM customer
+WHERE cust_name LIKE '%n';
+
+
+21.Find those salesmen with all information whose name containing the 1st character is 'N' and the 4th character is 'A' and rests may be any character:
+SELECT *
+FROM customer 
+WHERE cust_name LIKE 'N__A%';
+
+
+22.Find that customer with all information who does not get any commision except 0.
+SELECT * 
+FROM customer
+WHERE commision IS NULL;
+
+
+23.Find the total purchase amount of all orders:
+SELECT SUM(order_amt)
+FROM ordr;
+
+
+24. Find the number of order currently listing for :
+SELECT
+COUNT(DISTINCT order_id)
+FROM ordr;
+
+
+25.Find the highest commision for each of the cities of the customers:
+SELECT cust_city,MAX(commision)
+FROM customer
+GROUP BY cust_city;
+
+
+
+26.Find the highest purchase amount ordered by the each customer with their ID and highest purchase amount:
+SELECT cust_id,MAX(order_amt)
+FROM ordr 
+GROUP BY cust_id;
+
+
+27.Find the highest order amount ordered by the each customer with their ID and highest purchase amount:
+SELECT cust_id,order_id,MAX(order_amt)
+FROM ordr
+GROUP BY order_qty,cust_id;
+
+
+28.Find the highest purchase amount for each salesman with their order qty>30.
+SELECT order_qty,MAX(order_amt)
+FROM ordr
+WHERE order_qty>30;
+
+
+29.Write a SQL statement that counts all orders for city surat:
+SELECT COUNT(*)
+FROM customer
+WHERE cust_city='Surat';
+
+
+30.Find the name and city of those customers with commision greater than 0.10:
+SELECT customer.cust_name,ordr.order_id
+FROM customer,ordr
+WHERE commision>0.10;
+
+
+31.Find the name and city of those customers and salesmen who lives in the same city:
+SELECT customer.cust_name,ordr.salesman,ordr.S_city
+FROM customer,ordr
+WHERE cust_city=S_city;
+
+
+
+32.Find the names of all customers along with the salesmen who works for them:
+SELECT customer.cust_name,ordr.salesman
+FROM customer,ordr
+WHERE ordr.salesman_id=customer.cust_id;
+
+
+33.Display all those orders by the customers not located in the same cities where their salesmen live:
+SELECT customer.cust_name ordr.order_id,salesman_id
+FROM customer ordr
+WHERE cust_city = ordr.S_city
+AND cust_id = cust_id
+AND ordr.salesman_id = ordr.salesman_id;
+
+
+34.Display all the orders issued by the salesman 'Pit Alex' from the orders table:
+SELECT *
+FROM ordr
+WHERE salesman_id =
+(SELECT salesman_id
+FROM ordr
+WHERE salesman = 'Pit Alex');
+
+
+35.Display all the orders which values are greater than the average order value for order quantity above 10:
+FROM ordr
+WHERE order_amt >(
+SELECT AVG(order_amt)
+FROM ordr
+WHERE order_qty>10);
+
+
+36.Find all orders attributed to salesmen in surat.
+SELECT *
+FROM ordr
+WHERE salesman_id IN
+(SELECT salesman_id 
+FROM ordr 
+WHERE S_city ='Surat');
+
+
+37.Extract the data from the ordr table for the salesman who sale maximum quantity:
+SELECT order_id, order_amt,salesman_id 
+FROM ordr 
+WHERE salesman_id IN (
+SELECT salesman_id
+FROM ordr
+WHERE order_qty = (
+SELECT MAX(order_qty) 
+FROM ordr)
+);
+
+
+38.Find the name and ids of all salesmen who had more than one customer:
+SELECT salesman_id,salesman 
+FROM ordr AS a 
+WHERE 1 < 
+(SELECT COUNT(*) 
+FROM ordr AS c
+WHERE c.salesman_id = a.salesman_id);
+
+
+39.Write a query to find all the salesmen who worked for only one customer:
+SELECT *
+FROM ordr
+WHERE salesman_id IN (
+SELECT DISTINCT salesman_id
+FROM ordr a 
+WHERE NOT EXISTS (
+SELECT * FROM ordr b 
+WHERE a.salesman_id = b.salesman_id 
+AND a.salesman <> b.salesman))  
+
+
+40.display only those customers whose grade are, in fact, higher than every customer in New York:
+SELECT *
+FROM customer
+WHERE commision > ALL
+(SELECT commision 
+FROM customer 
+WHERE cust_city = 'Valsad');
+
+
+41.write a SQL query to find the details of those salespeople whose commissions range from 0.10 to0.12. Return salesman_id, name, city, and commission:
+SELECT salesman_id,s_name,s_city,commission 
+FROM salesman 
+WHERE (commission > 0.10 
+AND commission< 0.12);
+
+
+42.write a SQL query to find all orders that meet the following conditions. Exclude combinations of order no equal to 7001 or customer ID greater than 3005 and purchase amount less than 200:
+SELECT * 
+FROM  ordr 
+WHERE NOT((order_no=7001
+OR customer_id>3005) 
+AND pur_amt<200);
+
+
+43.Write a SQL query that displays order number, purchase amount, and the achieved and unachieved percentage (%) for those orders that exceed 50% of the target value of 5000:
+SELECT order_no,pur_amt, 
+(100*pur_amt)/5000 AS "Achieved %", 
+(100*(5000-pur_amt)/5000) AS "Unachieved %" 
+FROM  ordr 
+WHERE (100*pur_amt)/5000>50;
+
+
+44.write a SQL query to find the employees who work at age 25 or 30. Return emp_idno, emp_fname, emp_lname, and emp_dept:
+SELECT * 
+FROM customer
+WHERE cust_age = 25 OR cust_age = 30;
+
+
+
+45.write a SQL query to retrieve the details of the salespeople whose names begin with any letter between 'A' and 'L' (not inclusive). Return salesman_id, name, city, commission:
+SELECT *
+FROM salesman
+WHERE s_name BETWEEN 'A' and 'L';
+
+
+46.write a SQL query to find the details of all salespeople except those whose names begin with any letter between 'A' and 'L' (not inclusive). Return salesman_id, name, city, commission:
+SELECT *
+FROM salesman
+WHERE s_name NOT BETWEEN 'A' and 'L';
+
+
+47.write a SQL query to retrieve the details of all customers whose ID belongs to any of the values 3005, 3007 or 3009. Return customer_id, cust_name, city, and salesman_id:
+SELECT * 
+FROM customer 
+WHERE cust_id IN (3005,3007,3009);
+
+
+48.write a SQL query to find the details of those salespeople who live in cities other than Paris and Rome. Return salesman_id, name, city, commission:
+SELECT * 
+FROM salesman 
+WHERE s_city NOT IN('Paris','Rome');
+
+
+49.Write a SQL query to find all the orders. Sort the result-set in ascending order by ord_no. Return all fields.
+SELECT * 
+FROM ordr 
+ORDER BY order_no;
+
+
+50.write a SQL query to find all the customers. Sort the result-set in descending order on 3rd field. Return customer name, city and grade:
+SELECT cust_name,cust_city,cust_age 
+FROM customer 
+ORDER BY 3 DESC;
+
+
+51.From the following table, write a SQL query to find all the orders. Sort the result-set in descending order by ord_date and purch_amt:
+SELECT * 
+FROM ordr
+ORDER BY order_date, pur_amt DESC;
+
+
+52.From the following table, write a SQL query to find all the customers. Sort the result-set by customer_id. Return cust_name, city:
+SELECT cust_name,cust_city 
+FROM customer 
+ORDER BY cust_id;
+
+
+53.Write a SQL statement to make a Cartesian product between salesman and customer i.e. each salesman will appear for all customers and vice versa for those salesmen who must belong to a city which is not the same as his customer:
+SELECT * 
+FROM salesman a 
+CROSS JOIN customer b 
+WHERE a.s_city IS NOT NULL 
+AND b.cust_city IS NOT NULL 
+AND  a.s_city<>b.cust_city;
+
+
+54.Write a SQL statement to create a Cartesian product between salesperson and customer, i.e. each salesperson will appear for all customers and vice versa for that salesperson who belongs to that city:
+SELECT * 
+FROM salesman a 
+CROSS JOIN customer b 
+WHERE a.s_city IS NOT NULL;
+
+
+55.  Write a SQL statement to join the tables salesman, customer and orders so that the same column of each table appears once and only the relational rows are returned:
+SELECT * 
+FROM ordr
+NATURAL JOIN customer  
+NATURAL JOIN salesman;
+
+
+56.write a SQL query to calculate the total order amount generated by a salesperson. Salespersons should be from the cities where the customers reside. Return salesperson name, city and total order amount:
+SELECT salesman.s_name, salesman.s_city, a.total_amt FROM 
+salesman, (SELECT salesman_id, SUM(ordr.pur_amt) AS total_amt 
+FROM ordr GROUP BY salesman_id) a WHERE a.salesman_id = salesman.salesman_id AND
+salesman.s_city IN (SELECT DISTINCT cust_city FROM customer);
+
+
+57.write a SQL query to find those customers whose age are not the same as those who live in London City. Return customer_id, cust_name, city and salesman_id:
+SELECT *
+FROM customer WHERE cust_age <> ALL 
+(SELECT cust_age FROM customer WHERE cust_city='London' AND NOT cust_age IS NULL);
+
+
+58.write a SQL query to find those customers whose Age are different from those living in Paris. Return customer_id, cust_name, city and salesman_id:
+SELECT *
+FROM customer 
+WHERE cust_age NOT IN
+   (SELECT cust_age
+	FROM customer
+	WHERE cust_city='Paris');
+
+
+59.write a SQL query to find all those customers who have different age than any customer who lives in Ney York city. Return customer_id, cust_name,city and salesman_id:
+SELECT *
+FROM customer 
+WHERE NOT cust_age = ANY
+   (SELECT cust_age
+	FROM customer
+	WHERE cust_city='New York');
+
+
+
+60.write a SQL query to find all those customers with a higher age than all the customers alphabetically below the city of New York. Return customer_id, cust_name, city,salesman_id:
+SELECT *
+FROM customer
+WHERE cust_age > ANY
+   (SELECT cust_age
+	FROM customer
+	WHERE  cust_city < 'New York');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
