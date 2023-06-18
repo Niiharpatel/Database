@@ -1,0 +1,72 @@
+
+
+Q:1 What do you understand By Database.
+Ans: Database is a collection of inter-related data and management system.
+     Is a set of programs to store and retreive those data.
+
+
+Q:2 What is Normalization?
+Ans: Normalization is the process of minimizing redundancy (duplicity) from a relation or set of relations.
+     It is a multi-step process that sets the data into tabular form and removes the duplicated data from the relational tables.
+
+
+Q:3 What is Difference between DBMS and RDBMS?
+Ans:  DBMS stands for Database Management System, and RDBMS is stands for the Relational Database Management system.
+      In DBMS, the data is stored as a file, whereas in RDBMS, data is stored in the form of tables.
+
+
+Q:4 What is MF Cod Rule of RDBMS Systems?
+Ans: A database must obey in order to be regarded as a true relational database
+	Dr Edgar Frank codd Makes 13 rules. These rules can be applied on any database system that manages stored data using only its relational capabilities.
+	Rules 0: Foundation Rule:-For any RDBMS this acts as a base for all the rules
+	Rule 1:Information Rule:-Everything in database must be stored in a table format(Rows & columns)
+	Rule 2: Guaranteed Access Rule:-Every single data element(value) is guaranteed to be accessible via:-table-name or primary key  & attribute-name.
+	Rule 3:-Systematic Treatment of Null Values:-The null values in a database must be given systematic & uniform treatment. NULL can be interpreted as – data missing /blank space/data is not known.
+	Rule 4:-Active Online Catalogue:-structure description of the entire database must be stored in an online catalogue, which can be accessed by authorized users (data administrator). User can use the same query language to access the catalogue
+	  Rule 5:-Comprehensive data sub-language rule:-A database can only be accessed using a language. RDMS uses SQL(structured query language)
+	Rule 6:-View Updating Rule:-All the views of database, which can theoretically be updated, must also be updatable by the system.
+	Rule 7:-RDBMS must support high-level insertion update and delete.it must also support union, intersection and minus operation.
+	Rule 8:-Physical data independence:-The data stored in a database must be independent of the applications that access the database. For example:-Any physical changes in website should not effect to user accessing it.
+	Rule 9:-Logical Data Independence:-The logical data in a database must be independent of its user’s view. For example:-if two tables are merged there should be no impact on application.
+         Rule 10:-Integrity Independence:-Any data inserted on the table should maintain its integrity no changes in its value. For example:-if age is inserted 10 the no changes in value it must store as 10.
+	Rule 11:-Distribution independence:-The end user must not able to see that data is distributed over various locations. Users should always get impression that the data is located at one site only. Example:-Users may access website from different locations
+	Rule 12:-Non-Subversion Rule:- SQL language to store and manipulate the data in the database. If a system has a low-level or separate language other than SQL to access the database system, it should not subvert or bypass integrity to transform data.
+ 
+
+
+Q:5 What do you understand By Data Redundancy?
+Ans: Data redundancy occurs when the same piece of data exists in multiple places, whereas data inconsistency is when the same data exists in different formats in multiple tables.
+     Unfortunately, data redundancy can cause data inconsistency, which can provide a company with unreliable and/or meaningless information.
+
+
+Q:6 What is DDL Interpreter? 
+Ans: DDL stands for Data Definition Language.These commands are used to change the structure of a database and database objects.
+     For example, DDL commands can be used to add, remove, or modify tables with in a database.
+
+
+Q:7 What is DML Compiler in SQL?
+Ans: A data manipulation language (DML) is a computer programming language used for adding (inserting), deleting,
+     and modifying (updating) data in a database.
+
+
+Q:8 What is SQL Key Constraints writing an Example of SQL Key Constraints.
+Ans: SQL constraints are used to specify rules for the data in a table.Constraints are used to limit the type of data that can go into a table.
+     This ensures the accuracy and reliability of the data in the table.
+     Ex The PRIMARY KEY constraint is simply a combination of NOT NULL and UNIQUE constraints. It means that the column value is used to uniquely identify the row.
+
+
+Q:9 What is save Point? How to create a save Point write a Query?
+Ans: A SAVEPOINT is a point in a transaction when you can roll the transaction back to a certain point without rolling back the entire transaction.
+     Syntax for a SAVEPOINT: SAVEPOINT SAVEPOINT_NAME;
+     This command serves only in the creation of a SAVEPOINT among all the transactional statements. 
+     The ROLLBACK command is used to undo a group of transactions.
+
+
+Q:10 What is trigger and how to create a Trigger in SQL?
+Ans: A trigger is a stored procedure in database which automatically invokes whenever a special event in the database occurs.
+     For example, a trigger can be invoked when a row is inserted into a specified table.
+     CREATE TRIGGER [Trigger_Name]
+     [Trigger_Time] [Trigger_Event] 
+     ON [Table_Name] ;
+
+
